@@ -1,23 +1,22 @@
 import os
 import sys
 
-sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+# Adiciona o diretório pai de 'src' ao sys.path
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 try:
-    from domain.entities.livro import Livro
-    from domain.entities.usuario import Usuario
-    from domain.value_objects.isbn import ISBN
-    from domain.value_objects.email import Email
+    from src.domain.entities import Livro, Usuario
+    from src.domain.value_objects.email import Email
+    from src.domain.value_objects.isbn import ISBN
 
     print("Importações do domínio funcionando")
 
     # Teste de criação de entidades
-    isbn = ISBN("978-0134494166")
-    livro = Livro(titulo="Clean Architecture", autor="Robert Martin", isbn=isbn)
+    livro = Livro(id="", titulo="Clean Architecture", autor="Robert Martin", isbn=ISBN("978-0134494166"))
     print(f"Livro criado: {livro.titulo}")
 
     email = Email("teste@email.com")
-    usuario = Usuario(nome="João Silva", email=email)
+    usuario = Usuario(id="", nome="João Silva", email=email)
     print(f"Usuário criado: {usuario.nome}")
 
     # Teste de comportamentos
@@ -29,11 +28,11 @@ try:
 
     print("Estrutura DDD funcionando corretamente!")
 
-    from infrastructure.repositories.user_repository import UserRepository
-    from application.use_case.create_user_use_case import CreateUserUseCase
-    from application.use_case.list_users_use_case import ListUsersUseCase
-    from application.use_case.update_user_use_case import UpdateUserUseCase
-    from presentation.schemas.user_schema import UserCreateSchema, UserUpdateSchema
+    from src.infrastructure.repositories.user_repository import UserRepository
+    from src.application.use_case.create_user_use_case import CreateUserUseCase
+    from src.application.use_case.list_users_use_case import ListUsersUseCase
+    from src.application.use_case.update_user_use_case import UpdateUserUseCase
+    from src.presentation.schemas.user_schema import UserCreateSchema, UserUpdateSchema
 
     def main():
         # Instanciando repositório e use cases

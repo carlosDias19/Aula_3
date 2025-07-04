@@ -1,4 +1,4 @@
-from src.domain.entities.usuario import Usuario
+from src.domain.entities import Usuario
 from src.domain.value_objects.email import Email
 from dataclasses import asdict
 from fastapi import APIRouter, HTTPException
@@ -15,6 +15,7 @@ class UserRepository:
         if "email" not in user_data or not user_data["email"]:
             raise ValueError("Email é obrigatório")
         usuario = Usuario(
+            id="",  
             nome=user_data["nome"],
             email=Email(user_data["email"])
         )
